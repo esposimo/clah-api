@@ -1,0 +1,8 @@
+:80 {
+  @api path /api/*
+  handle @api {
+    respond "API proxy bootstrap: configurazione PHP-FPM/Laravel da completare" 501
+  }
+
+  reverse_proxy clah-frontend:80
+}

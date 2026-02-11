@@ -1,0 +1,65 @@
+services:
+  clah-api:
+    build:
+      context: ./build/api
+      dockerfile: Dockerfile
+    container_name: clah-api
+    restart: unless-stopped
+    expose:
+      - "9000"
+    volumes:
+      - api-code:/var/www/html
+    networks:
+      - clah-net
+
+  clah-kv-store:
+    build:
+      context: ./build/kv-store
+      dockerfile: Dockerfile
+    container_name: clah-kv-store
+    restart: unless-stopped
+    command:
+      - /usr/local/bin/etcd
+      - --name=clah-kv-store
+      - --data-dir=/etcd-data
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --advertise-client-urls=http://clah-kv-store:2379
+    volumes:
+      - kv-store-data:/etcd-data
+    ports:
+      - "2379:2379"
+    networks:
+      - clah-net
+
+  clah-frontend:
+    build:
+      context: ./build/frontend
+      dockerfile: Dockerfile
+    container_name: clah-frontend
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - clah-net
+
+  clah-rproxy:
+    build:
+      context: ./build/rproxy
+      dockerfile: Dockerfile
+    container_name: clah-rproxy
+    restart: unless-stopped
+    depends_on:
+      - clah-api
+      - clah-frontend
+    ports:
+      - "80:80"
+    networks:
+      - clah-net
+
+volumes:
+  api-code:
+  kv-store-data:
+
+networks:
+  clah-net:
+    driver: bridge

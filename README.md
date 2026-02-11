@@ -20,13 +20,19 @@ Repository iniziale per costruire un piccolo "cloud casalingo" composto da più 
 ├── README.md
 └── build
     ├── api
-    │   └── Dockerfile
+    │   ├── Dockerfile
+    │   └── src
+    │       ├── app/Domain/{Environment,Network}
+    │       ├── app/Services/{Etcd,Environment,Network}
+    │       ├── app/Providers/AppServiceProvider.php
+    │       ├── app/Http/Controllers/Api
+    │       └── routes/api.php
     ├── frontend
     │   ├── Caddyfile
     │   ├── Dockerfile
     │   └── site/index.html
     ├── kv-store
-    │   └── Dockerfile
+    │   ├── Dockerfile
     └── rproxy
         ├── Caddyfile
         └── Dockerfile
@@ -44,8 +50,13 @@ Endpoint iniziali:
 
 ## Prossimi passi
 
-- integrazione vera Laravel + source code mount
+- definizione della logica interna dei controller Laravel per persistenza su etcd
 - routing `/api` su backend Laravel via reverse proxy
 - definizione API e modello stato su etcd
 - introduzione container `runner` con profili compose
 - scelta stack frontend (Vue/React/altro)
+
+## Nota runtime Laravel
+
+- Il container API mantiene il progetto Laravel completo generato in image build.
+- In sviluppo Compose monta solo `app` e `routes` da `build/api/src` per non sovrascrivere `public/index.php` e gli altri file bootstrap Laravel.

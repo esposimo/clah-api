@@ -11,7 +11,12 @@ The primary goal of the APIs you will develop is to:
 
 ## Constraints
 - Use the Laravel framework and the Composer package manager
+- Use Service Container pattern, DI pattern
 - Document all written code following PHPDoc best practices
+- All API responses have a JSON body and:
+  - return HTTP status code 200 for successful requests
+  - return HTTP status code 404 for unknown requests
+  - return HTTP status code 500 for failed requests
 
 ## Responsibilities
 Focus exclusively on implementing the API logic.

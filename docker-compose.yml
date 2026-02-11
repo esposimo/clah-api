@@ -8,7 +8,8 @@ services:
     expose:
       - "9000"
     volumes:
-      - api-code:/var/www/html
+      - ./build/api/src/app:/var/www/html/app
+      - ./build/api/src/routes:/var/www/html/routes
     networks:
       - clah-net
 
@@ -57,7 +58,6 @@ services:
       - clah-net
 
 volumes:
-  api-code:
   kv-store-data:
 
 networks:

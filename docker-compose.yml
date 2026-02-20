@@ -6,6 +6,8 @@ services:
     command: ["/usr/local/bin/etcd-entrypoint.sh"]
     volumes:
       - kv-store-data:/var/lib/etcd
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       - clah-internal
     healthcheck:
@@ -26,6 +28,8 @@ services:
     volumes:
       - ./build/api/app:/var/www/html/app:ro
       - ./build/api/bootstrap:/var/www/html/bootstrap:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     depends_on:
       kv-store:
         condition: service_healthy
@@ -46,6 +50,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./build/rproxy/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
       - ./build/rproxy/httpd/conf.d:/usr/local/apache2/conf/conf.d:ro
       - ./build/rproxy/vhosts:/etc/clah/vhosts:ro

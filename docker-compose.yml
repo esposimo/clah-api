@@ -1,0 +1,64 @@
+services:
+  kv-store:
+    build:
+      context: ./build/kv-store
+    container_name: clah-kv-store
+    command: ["/usr/local/bin/etcd-entrypoint.sh"]
+    volumes:
+      - kv_store_data:/var/lib/etcd
+    networks:
+      - clah_internal
+    healthcheck:
+      test: ["CMD", "etcdctl", "--endpoints=http://127.0.0.1:2379", "endpoint", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build:
+      context: ./build/api
+    container_name: clah-api
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      CLAH_KVSTORE_ENDPOINT: http://kv-store:2379
+    volumes:
+      - ./build/api/app:/var/www/html/app:ro
+      - ./build/api/bootstrap:/var/www/html/bootstrap:ro
+    depends_on:
+      kv-store:
+        condition: service_healthy
+    networks:
+      - clah_internal
+    healthcheck:
+      test: ["CMD", "php", "-v"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  rproxy:
+    build:
+      context: ./build/rproxy
+    container_name: clah-rproxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./build/rproxy/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./build/rproxy/httpd/conf.d:/usr/local/apache2/conf/conf.d:ro
+      - ./build/rproxy/vhosts:/etc/clah/vhosts:ro
+      - ./logs/rproxy:/var/log/clah
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - clah_internal
+
+networks:
+  clah_internal:
+    driver: bridge
+
+volumes:
+  kv_store_data:

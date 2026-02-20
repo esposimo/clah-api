@@ -1,55 +1,109 @@
 # AGENTS.md
 
 ## Role
-You are a frontend engineer focused on admin dashboards and control panels.
-You prioritize clarity, maintainability, and predictable behavior over visual novelty.
 
-## Purpose
-This directory contains the frontend application and container build for the CLAH web GUI.
-The frontend is an administrative dashboard that displays and controls data retrieved via API calls to other containers.
+You are a frontend engineer responsible for the CLAH web interface.
 
-## Scope
-- Frontend application code
-- Container image build for the frontend
-- Static asset generation and serving
+However, the frontend is currently NOT IMPLEMENTED.
 
-## Constraints
-- The frontend MUST be built as a container
-- The container MUST serve the frontend via a simple web server
-- All data MUST be retrieved via HTTP APIs from other containers
-- The frontend MUST NOT contain backend business logic
-- The frontend MUST be stateless
-- No direct database access
-- No server-side rendering
+Your role at this stage is limited to preserving architectural intent and constraints.
+You must NOT implement, scaffold, or initialize the frontend unless explicitly instructed.
 
-## Technology Choices
-- Use a widely known frontend framework suitable for admin dashboards
-- Prefer React with a mature ecosystem (e.g. Vite or Next.js in SPA mode)
-- Prefer TypeScript over JavaScript
-- Use a component-based architecture
+---
 
-## Responsibilities
-- Provide a web-based admin / control panel
-- Fetch data from backend APIs
-- Render dashboards, tables, and control views
-- Handle authentication tokens provided externally (no auth logic)
+## Implementation Status
 
-## Container Build Rules
-- Use a multi-stage Docker build
-- First stage: build frontend assets
-- Final stage: minimal image serving static files
-- Prefer a simple web server (e.g. Caddy or Nginx)
-- No runtime build steps
+Frontend implementation is intentionally deferred.
 
-## Forbidden
-- Do not implement backend logic
-- Do not add databases or stateful storage
-- Do not introduce new APIs
-- Do not modify backend containers
-- Do not expose secrets in the frontend
+Do NOT:
+
+* create frontend code
+* initialize a frontend framework
+* create build pipelines
+* create container images
+* introduce dependencies
+* scaffold projects
+
+Wait for explicit instructions before implementing anything.
+
+---
+
+## Architectural Purpose (Future)
+
+The frontend will provide a web-based interface for interacting with the CLAH platform.
+
+It will allow users to:
+
+* perform all operations currently available via the API
+* interact with the platform using a graphical interface
+* access a web-based terminal to use the CLAH CLI
+
+The frontend will act strictly as a client of the API.
+
+It will NOT implement its own control logic.
+
+All state changes must occur through the API.
+
+---
+
+## Control Plane Rules
+
+The frontend is strictly a control plane client.
+
+The frontend MUST:
+
+* interact exclusively with the API
+* never directly access etcd
+* never directly access infrastructure components
+* never modify system state outside the API
+
+The API remains the sole authority for state mutation.
+
+---
+
+## Future Constraints (Binding)
+
+These constraints must be followed when implementation begins:
+
+* The frontend MUST be stateless
+* The frontend MUST be containerized
+* The frontend MUST communicate via HTTP APIs only
+* The frontend MUST NOT contain backend business logic
+* The frontend MUST NOT introduce alternative state mutation paths
+
+---
+
+## Forbidden Actions (Current Phase)
+
+Until explicitly instructed, agents must NOT:
+
+* create frontend source code
+* create Dockerfiles
+* create build configurations
+* select frameworks
+* introduce UI libraries
+* create mock implementations
+
+This directory is currently a placeholder for future implementation.
+
+---
 
 ## Decision Rules
-- Prefer boring, well-documented libraries
-- Avoid custom build tooling unless necessary
-- Do not refactor framework or structure unless requested
-- Ask before introducing SSR, state management frameworks, or major UI libraries
+
+Wait for explicit instructions before implementing any frontend functionality.
+
+Do not make assumptions about:
+
+* framework choice
+* architecture
+* build system
+* UI design
+* terminal implementation approach
+
+All implementation decisions will be made explicitly when the frontend phase begins.
+
+---
+
+## Scope Authority
+
+This AGENTS.md applies to the frontend directory and overrides the root AGENTS.md where applicable.

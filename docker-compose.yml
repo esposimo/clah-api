@@ -5,9 +5,9 @@ services:
     container_name: clah-kv-store
     command: ["/usr/local/bin/etcd-entrypoint.sh"]
     volumes:
-      - kv_store_data:/var/lib/etcd
+      - kv-store-data:/var/lib/etcd
     networks:
-      - clah_internal
+      - clah-internal
     healthcheck:
       test: ["CMD", "etcdctl", "--endpoints=http://127.0.0.1:2379", "endpoint", "health"]
       interval: 10s
@@ -30,7 +30,7 @@ services:
       kv-store:
         condition: service_healthy
     networks:
-      - clah_internal
+      - clah-internal
     healthcheck:
       test: ["CMD", "php", "-v"]
       interval: 30s
@@ -54,11 +54,11 @@ services:
       api:
         condition: service_healthy
     networks:
-      - clah_internal
+      - clah-internal
 
 networks:
-  clah_internal:
+  clah-internal:
     driver: bridge
 
 volumes:
-  kv_store_data:
+  kv-store-data:

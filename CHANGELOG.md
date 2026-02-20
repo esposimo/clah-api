@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.2] - 2026-02-20
+
+### Added
+- Aggiunta specifica `build/api/openapi.json` con i primi endpoint `GET /env` e `GET /networks`.
+- Aggiornata la documentazione API e repository per includere la nuova base OpenAPI.
+
 ## [0.1.1] - 2026-02-20
 
 ### Changed

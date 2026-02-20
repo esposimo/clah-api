@@ -13,3 +13,10 @@ Questo build context prepara un runtime PHP-FPM con base Laravel installata in f
 - `app/Http/Controllers`: controller applicativi aggiuntivi
 - `app/Services`: servizi con logica di dominio
 - `bootstrap/`: artefatti bootstrap applicativi
+
+
+## Specifica OpenAPI
+
+- `openapi.json`: specifica iniziale del control plane API.
+- Endpoint iniziali documentati: `GET /env` e `GET /networks`.
+- Da questa specifica verrà derivata la generazione dei controller nelle iterazioni successive.

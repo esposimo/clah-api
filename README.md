@@ -10,6 +10,7 @@ Questo repository rappresenta il **nuovo punto di partenza** del progetto con un
 - `build/api`: estensioni applicative Laravel su runtime PHP-FPM con base Laravel installata in build via Composer
 - `build/rproxy`: reverse proxy Apache HTTPD con configurazione modulare
 - `build/frontend`: placeholder (frontend non ancora implementato)
+- `build/api/openapi.json`: specifica OpenAPI iniziale degli endpoint del control plane (`/env`, `/networks`)
 
 ## Avvio locale
 

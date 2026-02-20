@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CLAH Control Plane API",
+    "version": "0.1.0",
+    "description": "Specifica OpenAPI iniziale per il modulo API del progetto CLAH."
+  },
+  "paths": {
+    "/env": {
+      "get": {
+        "summary": "Recupera informazioni ambiente platform",
+        "operationId": "getEnvironment",
+        "responses": {
+          "200": {
+            "description": "Informazioni ambiente restituite correttamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/networks": {
+      "get": {
+        "summary": "Elenca reti gestite dalla piattaforma",
+        "operationId": "getNetworks",
+        "responses": {
+          "200": {
+            "description": "Lista reti restituita correttamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworksResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EnvResponse": {
+        "type": "object",
+        "properties": {
+          "environment": {
+            "type": "string",
+            "example": "production"
+          },
+          "region": {
+            "type": "string",
+            "example": "eu-central"
+          }
+        },
+        "required": [
+          "environment",
+          "region"
+        ]
+      },
+      "NetworksResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Network"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "Network": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "net-main"
+          },
+          "cidr": {
+            "type": "string",
+            "example": "10.10.0.0/16"
+          }
+        },
+        "required": [
+          "id",
+          "cidr"
+        ]
+      }
+    }
+  }
+}

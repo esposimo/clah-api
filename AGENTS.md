@@ -18,6 +18,7 @@ This repository defines the CLAH platform: a self-hosted, infrastructure-defined
 - Infrastructure over API
 - Contracts over conventions
 - Composition over monoliths
+- Remember to update CHANGELOD.md and README.md
 
 ## Decision Rules
 - Do not change architecture unless explicitly requested

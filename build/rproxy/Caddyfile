@@ -1,8 +1,0 @@
-:80 {
-  @api path /api/*
-  handle @api {
-    reverse_proxy clah-api:9000
-  }
-
-  reverse_proxy clah-frontend:80
-}

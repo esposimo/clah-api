@@ -20,3 +20,4 @@ Questo build context prepara un runtime PHP-FPM con base Laravel installata in f
 - `openapi.json`: specifica iniziale del control plane API.
 - Endpoint documentati: CRUD ambienti su `/env` (`GET /env`, `GET /env/{uuid}`, `POST /env`, `DELETE /env/{uuid}`) e `GET /networks`.
 - Da questa specifica verrà derivata la generazione dei controller nelle iterazioni successive.
+- Schema ambiente (`Environment` / `EnvCreateRequest`) esteso con `friendly-name` (max 30) e `description` (max 1024), con vincolo su `name` (`^[A-Za-z0-9._-]+$`).

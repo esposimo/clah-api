@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4] - 2026-02-21
+
+### Changed
+- Aggiornata la specifica `build/api/openapi.json` per l'oggetto ambiente con i nuovi attributi `friendly-name` (max 30 caratteri) e `description` (max 1024 caratteri).
+- Aggiunto vincolo OpenAPI su `name` per accettare solo lettere, numeri e i caratteri `.`, `_`, `-` (senza spazi) tramite pattern `^[A-Za-z0-9._-]+$`.
+- Allineata la documentazione API in `build/api/README.md` ai nuovi vincoli/schema degli ambienti.
+
 ## [0.1.3] - 2026-02-21
 
 ### Changed

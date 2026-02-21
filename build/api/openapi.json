@@ -132,12 +132,26 @@
         "properties": {
           "name": {
             "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+$",
+            "description": "Identificativo tecnico dell'ambiente (senza spazi; consentiti lettere, numeri, '.', '_' e '-').",
             "example": "production"
           },
           "uuid": {
             "type": "string",
             "format": "uuid",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "friendly-name": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Nome leggibile dell'ambiente (massimo 30 caratteri, spazi inclusi).",
+            "example": "Production EU"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Descrizione libera dell'ambiente (massimo 1024 caratteri).",
+            "example": "Ambiente di produzione principale per il cluster europeo."
           }
         },
         "required": [
@@ -150,7 +164,21 @@
         "properties": {
           "name": {
             "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+$",
+            "description": "Identificativo tecnico dell'ambiente (senza spazi; consentiti lettere, numeri, '.', '_' e '-').",
             "example": "production"
+          },
+          "friendly-name": {
+            "type": "string",
+            "maxLength": 30,
+            "description": "Nome leggibile dell'ambiente (massimo 30 caratteri, spazi inclusi).",
+            "example": "Production EU"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Descrizione libera dell'ambiente (massimo 1024 caratteri).",
+            "example": "Ambiente di produzione principale per il cluster europeo."
           }
         },
         "required": [

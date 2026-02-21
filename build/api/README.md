@@ -18,5 +18,5 @@ Questo build context prepara un runtime PHP-FPM con base Laravel installata in f
 ## Specifica OpenAPI
 
 - `openapi.json`: specifica iniziale del control plane API.
-- Endpoint iniziali documentati: `GET /env` e `GET /networks`.
+- Endpoint documentati: CRUD ambienti su `/env` (`GET /env`, `GET /env/{uuid}`, `POST /env`, `DELETE /env/{uuid}`) e `GET /networks`.
 - Da questa specifica verrà derivata la generazione dei controller nelle iterazioni successive.

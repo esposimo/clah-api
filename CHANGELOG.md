@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3] - 2026-02-21
+
+### Changed
+- Estesa la specifica `build/api/openapi.json` per `/env` con operazioni CRUD a livello OpenAPI: list (`GET /env`), show (`GET /env/{uuid}`), add (`POST /env`) e del (`DELETE /env/{uuid}`).
+- Definiti gli schemi JSON degli ambienti (`name`, `uuid`) e delle risposte per lista (`count` + `items`) ed eliminazione (`status: ok`).
+- Aggiornata la documentazione API in `build/api/README.md` per riflettere i nuovi endpoint documentati.
+
 ## [0.1.2] - 2026-02-20
 
 ### Added

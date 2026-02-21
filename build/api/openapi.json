@@ -8,15 +8,97 @@
   "paths": {
     "/env": {
       "get": {
-        "summary": "Recupera informazioni ambiente platform",
-        "operationId": "getEnvironment",
+        "summary": "Elenca tutti gli ambienti",
+        "operationId": "listEnvironments",
         "responses": {
           "200": {
-            "description": "Informazioni ambiente restituite correttamente",
+            "description": "Lista ambienti restituita correttamente",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EnvResponse"
+                  "$ref": "#/components/schemas/EnvListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Aggiunge un nuovo ambiente",
+        "operationId": "addEnvironment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnvCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ambiente creato correttamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Environment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/env/{uuid}": {
+      "get": {
+        "summary": "Mostra il dettaglio di un ambiente",
+        "operationId": "showEnvironment",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dettaglio ambiente restituito correttamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Environment"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Rimuove un ambiente",
+        "operationId": "deleteEnvironment",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ambiente rimosso correttamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvDeleteResponse"
                 }
               }
             }
@@ -45,21 +127,66 @@
   },
   "components": {
     "schemas": {
-      "EnvResponse": {
+      "Environment": {
         "type": "object",
         "properties": {
-          "environment": {
+          "name": {
             "type": "string",
             "example": "production"
           },
-          "region": {
+          "uuid": {
             "type": "string",
-            "example": "eu-central"
+            "format": "uuid",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
           }
         },
         "required": [
-          "environment",
-          "region"
+          "name",
+          "uuid"
+        ]
+      },
+      "EnvCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "production"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "EnvListResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 2
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Environment"
+            }
+          }
+        },
+        "required": [
+          "count",
+          "items"
+        ]
+      },
+      "EnvDeleteResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          }
+        },
+        "required": [
+          "status"
         ]
       },
       "NetworksResponse": {

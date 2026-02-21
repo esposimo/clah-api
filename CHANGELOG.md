@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.5] - 2026-02-21
+
+### Added
+- Aggiunto skeleton backend storage-agnostic in `build/api/app/Domain/RepositoryInterface.php` con operazioni KV (`get`, `put`, `del`, `list`).
+- Introdotta l'implementazione etcd `build/api/app/Infrastructure/Storage/EtcdRepository.php` con integrazione API v3 (`/v3/kv/*`) per accesso al source of truth.
+- Aggiunte le classi di dominio `Environment` e `EnvironmentRepository` per serializzazione, salvataggio, eliminazione, lookup per id/nome e lista ambienti.
+- Aggiunto binding Laravel DI in `build/api/app/Providers/AppServiceProvider.php` tra `RepositoryInterface` e `EtcdRepository`.
+
+### Changed
+- Aggiunto `build/api/app/Http/Controllers/EnvironmentController.php` con metodi `list`, `show`, `add`, `del` allineati alle azioni OpenAPI e gestione logica di cancellazione lato controller.
+- Aggiornato `build/api/Dockerfile` per includere i nuovi namespace `Domain`, `Infrastructure`, il provider applicativo e il nuovo controller nel runtime Laravel.
+- Aggiornata la documentazione in `build/api/README.md` e `README.md` con il nuovo skeleton repository/storage per i controller API.
+
 ## [0.1.4] - 2026-02-21
 
 ### Changed

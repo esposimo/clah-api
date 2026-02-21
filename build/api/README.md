@@ -10,9 +10,20 @@ Questo build context prepara un runtime PHP-FPM con base Laravel installata in f
 
 ## Struttura estensioni repository
 
-- `app/Http/Controllers`: controller applicativi aggiuntivi
+- `app/Http/Controllers`: controller applicativi aggiuntivi (es. `HealthController`, `EnvironmentController`)
+- `app/Domain`: entità e repository di dominio (storage-agnostic)
+- `app/Infrastructure/Storage`: implementazioni concrete dei backend KV (es. etcd)
+- `app/Providers`: binding del container Laravel
 - `app/Services`: servizi con logica di dominio
 - `bootstrap/`: artefatti bootstrap applicativi
+
+## Skeleton storage per controller
+
+- Definita `RepositoryInterface` con operazioni base KV (`get`, `put`, `del`, `list`).
+- Introdotta `EtcdRepository` che implementa l'interfaccia e parla con etcd via API v3 HTTP/JSON.
+- Registrato il binding nel container Laravel tramite `AppServiceProvider` (`RepositoryInterface -> EtcdRepository`).
+- Aggiunti `Environment` e `EnvironmentRepository` per centralizzare serializzazione, persistenza e lookup degli ambienti.
+- Aggiunto `EnvironmentController` con azioni OpenAPI (`list`, `show`, `add`, `del`) e logica di cancellazione centralizzata lato API.
 
 
 ## Specifica OpenAPI

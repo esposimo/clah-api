@@ -8,6 +8,7 @@ Questo repository rappresenta il **nuovo punto di partenza** del progetto con un
 
 - `build/kv-store`: servizio etcd (source of truth della configurazione)
 - `build/api`: estensioni applicative Laravel su runtime PHP-FPM con base Laravel installata in build via Composer
+  - include layer `Domain` (Environment + repository), `Infrastructure/Storage` (client etcd), binding DI in `AppServiceProvider` e `EnvironmentController` per le azioni API `/env`
 - `build/rproxy`: reverse proxy Apache HTTPD con configurazione modulare
 - `build/frontend`: placeholder (frontend non ancora implementato)
 - `build/api/openapi.json`: specifica OpenAPI iniziale degli endpoint del control plane (`/env`, `/networks`)

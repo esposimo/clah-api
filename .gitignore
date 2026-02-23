@@ -7,6 +7,8 @@ logs/
 .idea
 docker-compose-DEV.yml
 build/api/Dockerfile-DEV
+build/api/src/resources
+build/api/src/storage
 build/api/src/.*
 build/api/src/vendor
 build/api/src/artisan

@@ -3,7 +3,7 @@ services:
     build:
       context: ./build/kv-store
     container_name: clah-kv-store
-    command: ["/usr/local/bin/etcd-entrypoint.sh"]
+    command: ["/usr/local/bin/etcd", "--data-dir=/var/lib/etcd", "--listen-client-urls=http://0.0.0.0:2379", "--advertise-client-urls=http://kv-store:2379" ]
     volumes:
       - kv-store-data:/var/lib/etcd
       - /etc/localtime:/etc/localtime:ro
@@ -11,7 +11,7 @@ services:
     networks:
       - clah-internal
     healthcheck:
-      test: ["CMD", "etcdctl", "--endpoints=http://127.0.0.1:2379", "endpoint", "health"]
+      test: ["CMD", "etcdctl", "--endpoints=http://0.0.0.0:2379", "endpoint", "health"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,8 +26,8 @@ services:
       APP_DEBUG: "true"
       CLAH_KVSTORE_ENDPOINT: http://kv-store:2379
     volumes:
-      - ./build/api/app:/var/www/html/app:ro
-      - ./build/api/bootstrap:/var/www/html/bootstrap:ro
+      #- ./build/api/app:/var/www/html/app
+      #- ./build/api/bootstrap:/var/www/html/bootstrap:ro
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     depends_on:

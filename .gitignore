@@ -4,3 +4,16 @@
 logs/
 *.swp
 .DS_Store
+.idea
+docker-compose-DEV.yml
+build/api/Dockerfile-DEV
+build/api/src/.*
+build/api/src/vendor
+build/api/src/artisan
+build/api/src/composer.json
+build/api/src/composer.lock
+build/api/src/package.json
+build/api/src/phpunit.xml
+build/api/src/README.md
+build/api/src/vendor
+build/api/src/vite.config.js
